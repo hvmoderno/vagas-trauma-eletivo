@@ -1693,40 +1693,57 @@
   /* ---------- fila da central ---------- */
 
   // Escritas como chegam (sem acento, minúsculas) → como devem aparecer.
-  var CIDADES = {
-    "taua": "Tauá",
-    "quixada": "Quixadá",
-    "quixeramobim": "Quixeramobim",
-    "senador": "Senador",
-    "senador pompeu": "Senador Pompeu",
-    "ibaretama": "Ibaretama",
+  // Os 20 municípios da Macro Sertão Central, com as abreviações que a central usa.
+  // A chave é como o nome chega (minúsculo, sem acento); o valor é como deve aparecer.
+  var MACRO = {
+    "aiuaba": "Aiuaba",
+    "arneiroz": "Arneiroz",
     "banabuiu": "Banabuiú",
-    "caninde": "Canindé",
-    "milha": "Milhã",
     "boa": "Boa Viagem",
     "boa viagem": "Boa Viagem",
+    "caninde": "Canindé",
+    "caridade": "Caridade",
+    "choro": "Choró",
+    "ibaretama": "Ibaretama",
+    "ibicuitinga": "Ibicuitinga",
+    "itatira": "Itatira",
+    "madalena": "Madalena",
+    "milha": "Milhã",
+    "parambu": "Parambu",
+    "paramoti": "Paramoti",
     "pedra": "Pedra Branca",
     "pedra branca": "Pedra Branca",
-    "mombaca": "Mombaça",
+    "quixada": "Quixadá",
+    "quixeramobim": "Quixeramobim",
+    "senador": "Senador Pompeu",
+    "senador pompeu": "Senador Pompeu",
     "solonopole": "Solonópole",
+    "taua": "Tauá"
+  };
+
+  // Municípios vizinhos, fora da macro: entram com a grafia certa, mas a página
+  // avisa que estão fora dos 20 — costuma ser encaminhamento atípico ou erro de digitação.
+  var VIZINHAS = {
+    "mombaca": "Mombaça",
     "piquet": "Piquet Carneiro",
     "piquet carneiro": "Piquet Carneiro",
     "irapuan": "Deputado Irapuan Pinheiro",
     "deputado irapuan pinheiro": "Deputado Irapuan Pinheiro",
-    "choro": "Choró",
-    "ibicuitinga": "Ibicuitinga",
-    "itatira": "Itatira",
-    "madalena": "Madalena",
     "santa quiteria": "Santa Quitéria",
     "acopiara": "Acopiara",
     "independencia": "Independência",
     "quiterianopolis": "Quiterianópolis",
-    "parambu": "Parambu",
-    "arneiroz": "Arneiroz",
     "catarina": "Catarina",
-    "aiuaba": "Aiuaba",
-    "saboeiro": "Saboeiro"
+    "tabuleiro do norte": "Tabuleiro do Norte",
+    "fortaleza": "Fortaleza"
   };
+
+  var CIDADES = {};
+  Object.keys(MACRO).forEach(function (k) { CIDADES[k] = MACRO[k]; });
+  Object.keys(VIZINHAS).forEach(function (k) { CIDADES[k] = VIZINHAS[k]; });
+
+  var NOMES_MACRO = {};
+  Object.keys(MACRO).forEach(function (k) { NOMES_MACRO[MACRO[k]] = true; });
 
   var FRATURAS = {
     "trans": "fêmur transtrocantérica",
@@ -1760,12 +1777,17 @@
       if (partes.length <= n) continue;
       var chave = semAcento(partes.slice(-n).join(" "));
       if (CIDADES[chave]) {
-        return { fratura: partes.slice(0, -n).join(" "), cidade: CIDADES[chave] };
+        return {
+          fratura: partes.slice(0, -n).join(" "),
+          cidade: CIDADES[chave],
+          naMacro: !!MACRO[chave]
+        };
       }
     }
     return {
       fratura: partes.slice(0, -1).join(" "),
-      cidade: capitalizar(partes[partes.length - 1] || "")
+      cidade: capitalizar(partes[partes.length - 1] || ""),
+      naMacro: false
     };
   }
 
@@ -1783,6 +1805,7 @@
         reg: m[1],
         fratura: FRATURAS[chaveFratura] || partes.fratura,
         cidade: partes.cidade,
+        naMacro: partes.naMacro,
         dias: parseInt(m[3], 10),
         linha: linha.trim()
       });
@@ -1791,7 +1814,13 @@
       if (b.dias !== a.dias) return b.dias - a.dias;
       return a.reg.localeCompare(b.reg);
     });
-    return { itens: itens, ignoradas: ignoradas };
+    // Cidade fora dos 20 costuma ser erro de digitação; melhor apontar que engolir.
+    var fora = [];
+    itens.forEach(function (p) {
+      if (!p.naMacro && fora.indexOf(p.cidade) < 0) fora.push(p.cidade);
+    });
+
+    return { itens: itens, ignoradas: ignoradas, fora: fora };
   }
 
   function montarFila() {
@@ -1803,12 +1832,19 @@
     fila.forEach(function (p) { if (marcados[p.reg]) vivos[p.reg] = true; });
     marcados = vivos;
 
-    var aviso = document.getElementById("avisoLinhas");
-    aviso.textContent = lido.ignoradas
-      ? lido.ignoradas + (lido.ignoradas === 1
-          ? " linha não foi reconhecida e ficou de fora"
-          : " linhas não foram reconhecidas e ficaram de fora")
-      : "";
+    var recados = [];
+    if (lido.ignoradas) {
+      recados.push(lido.ignoradas + (lido.ignoradas === 1
+        ? " linha não foi reconhecida e ficou de fora"
+        : " linhas não foram reconhecidas e ficaram de fora"));
+    }
+    if (lido.fora.length) {
+      recados.push((lido.fora.length === 1
+        ? "cidade fora dos 20 municípios da macro: "
+        : "cidades fora dos 20 municípios da macro: ") + lido.fora.join(", ") +
+        " — confira a grafia");
+    }
+    document.getElementById("avisoLinhas").textContent = recados.join("  ·  ");
 
     var corpo = document.getElementById("corpoFila");
     corpo.textContent = "";
