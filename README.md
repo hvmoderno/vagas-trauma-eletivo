@@ -3,7 +3,9 @@
 Calculadora de quantos pacientes de trauma eletivo a enfermaria pode receber na semana,
 com leitura da lista da central de regulação, distribuição por dia e exportação em PDF.
 
-Página única, sem dependências: abra `vagas-trauma-eletivo.html` no navegador.
+Em uso: **https://hvmoderno.github.io/vagas-trauma-eletivo/**
+
+Página única, sem dependências: `index.html` roda sozinho, direto do disco também.
 Funciona offline, e nenhum dado sai do computador — não há servidor nem armazenamento.
 
 ## O cálculo
