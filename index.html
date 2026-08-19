@@ -1745,17 +1745,33 @@
   var NOMES_MACRO = {};
   Object.keys(MACRO).forEach(function (k) { NOMES_MACRO[MACRO[k]] = true; });
 
+  // Como a fratura chega (minúsculo, sem acento) → como deve aparecer.
+  // Trans, transtrocantérico, diafisário e fêmur são todos fêmur.
   var FRATURAS = {
-    "trans": "fêmur transtrocantérica",
+    "trans": "fêmur transtrocantérico",
+    "transtrocanterico": "fêmur transtrocantérico",
+    "transtrocanterica": "fêmur transtrocantérico",
+    "femur transtrocanterico": "fêmur transtrocantérico",
     "colo": "colo de fêmur",
+    "colo de femur": "colo de fêmur",
+    "femur diafisario": "fêmur diafisário",
+    "diafisario": "fêmur diafisário",
+    "diafise de femur": "fêmur diafisário",
+    "femur": "fêmur",
     "tnz": "tornozelo",
+    "tornozelo": "tornozelo",
     "lac": "luxação acromioclavicular",
     "umero proximal": "úmero proximal",
     "radio distal": "rádio distal",
+    "pilao tibial": "pilão tibial",
+    "plato tibial": "platô tibial",
+    "punho": "punho",
     "cotovelo": "cotovelo",
     "olecrano": "olécrano",
     "ulna": "ulna"
   };
+
+  var SEM_CIDADE = "Não informada";
 
   var marcados = {};
   var fila = [];
@@ -1791,36 +1807,85 @@
     };
   }
 
+  function resolverCidade(texto) {
+    var t = (texto || "").trim();
+    if (!t) return { cidade: SEM_CIDADE, naMacro: false, informada: false };
+    var chave = semAcento(t);
+    if (CIDADES[chave]) {
+      return { cidade: CIDADES[chave], naMacro: !!MACRO[chave], informada: true };
+    }
+    return { cidade: capitalizar(t), naMacro: false, informada: true };
+  }
+
+  function resolverFratura(texto) {
+    var t = (texto || "").trim();
+    return FRATURAS[semAcento(t)] || t;
+  }
+
+  // A lista chega de dois jeitos: campos separados por espaço, como no WhatsApp,
+  // ou por travessão. No segundo, a cidade às vezes falta — a linha entra assim mesmo.
+  function lerLinha(linha) {
+    var t = linha.trim();
+    if (!t) return null;
+
+    var campos = t.split(/\s+[—–-]+\s+/);
+    if (campos.length >= 3) {
+      var mReg = campos[0].match(/^(\d{4,9})$/);
+      var mDias = campos[campos.length - 1].match(/^(\d+)\s*dias?$/i);
+      if (mReg && mDias) {
+        var meio = campos.slice(1, -1);
+        var cid = resolverCidade(meio.length > 1 ? meio.slice(1).join(" ") : "");
+        return {
+          reg: mReg[1],
+          fratura: resolverFratura(meio[0]),
+          cidade: cid.cidade,
+          naMacro: cid.naMacro,
+          semCidade: !cid.informada,
+          dias: parseInt(mDias[1], 10),
+          linha: t
+        };
+      }
+    }
+
+    var m = t.match(/^\s*(\d{4,9})\s+(.+?)\s+(\d+)\s*dias?\s*$/i);
+    if (!m) return null;
+    var partes = separarFraturaCidade(m[2].trim());
+    return {
+      reg: m[1],
+      fratura: resolverFratura(partes.fratura),
+      cidade: partes.cidade,
+      naMacro: partes.naMacro,
+      semCidade: false,
+      dias: parseInt(m[3], 10),
+      linha: t
+    };
+  }
+
   function lerLista(texto) {
-    var linhas = texto.split("\n");
     var itens = [];
     var ignoradas = 0;
-    linhas.forEach(function (linha) {
+    var semCidade = 0;
+
+    texto.split("\n").forEach(function (linha) {
       if (!linha.trim()) return;
-      var m = linha.match(/^\s*(\d{5,9})\s+(.+?)\s+(\d+)\s*dias?\s*$/i);
-      if (!m) { ignoradas++; return; }
-      var partes = separarFraturaCidade(m[2].trim());
-      var chaveFratura = semAcento(partes.fratura);
-      itens.push({
-        reg: m[1],
-        fratura: FRATURAS[chaveFratura] || partes.fratura,
-        cidade: partes.cidade,
-        naMacro: partes.naMacro,
-        dias: parseInt(m[3], 10),
-        linha: linha.trim()
-      });
+      var p = lerLinha(linha);
+      if (!p) { ignoradas++; return; }
+      if (p.semCidade) semCidade++;
+      itens.push(p);
     });
+
     itens.sort(function (a, b) {
       if (b.dias !== a.dias) return b.dias - a.dias;
       return a.reg.localeCompare(b.reg);
     });
+
     // Cidade fora dos 20 costuma ser erro de digitação; melhor apontar que engolir.
     var fora = [];
     itens.forEach(function (p) {
-      if (!p.naMacro && fora.indexOf(p.cidade) < 0) fora.push(p.cidade);
+      if (!p.naMacro && !p.semCidade && fora.indexOf(p.cidade) < 0) fora.push(p.cidade);
     });
 
-    return { itens: itens, ignoradas: ignoradas, fora: fora };
+    return { itens: itens, ignoradas: ignoradas, fora: fora, semCidade: semCidade };
   }
 
   function montarFila() {
@@ -1843,6 +1908,11 @@
         ? "cidade fora dos 20 municípios da macro: "
         : "cidades fora dos 20 municípios da macro: ") + lido.fora.join(", ") +
         " — confira a grafia");
+    }
+    if (lido.semCidade) {
+      recados.push(lido.semCidade + (lido.semCidade === 1
+        ? " paciente veio sem cidade na lista"
+        : " pacientes vieram sem cidade na lista"));
     }
     document.getElementById("avisoLinhas").textContent = recados.join("  ·  ");
 
@@ -2053,6 +2123,11 @@
     return d;
   }
 
+  // "Não informada" é uma fatia legítima do total, mas não é um município.
+  function contarMunicipios(cidades) {
+    return cidades.filter(function (c) { return c.nome !== SEM_CIDADE; }).length;
+  }
+
   function renderPerfil() {
     var painel = document.getElementById("perfil");
     painel.hidden = fila.length === 0;
@@ -2073,7 +2148,7 @@
     tiles.appendChild(tile("Espera média", media.toFixed(1).replace(".", ","), "dias na central"));
     tiles.appendChild(tile("Espera máxima", maiorEspera, maiorEspera === 1 ? "dia" : "dias"));
     tiles.appendChild(tile("Fêmur", femur, Math.round((femur / total) * 100) + "% da fila"));
-    tiles.appendChild(tile("Municípios", cidades.length, "de origem"));
+    tiles.appendChild(tile("Municípios", contarMunicipios(cidades), "de origem"));
     tiles.appendChild(tile("3 dias ou mais", esperando3, Math.round((esperando3 / total) * 100) + "% da fila"));
 
     // Toda cidade e todo tipo aparecem, sempre — nada de linha "outras".
@@ -2081,14 +2156,15 @@
     desenharBarras(document.getElementById("graficoFraturas"), fraturas, "paciente");
     desenharEspera(document.getElementById("graficoEspera"), fila);
 
+    var municipios = contarMunicipios(cidades);
     document.getElementById("subCidades").textContent =
-      cidades.length + (cidades.length === 1 ? " município" : " municípios") + " na fila";
+      municipios + (municipios === 1 ? " município" : " municípios") + " na fila";
     document.getElementById("subFraturas").textContent =
       fraturas.length + (fraturas.length === 1 ? " tipo" : " tipos") + " de fratura na fila";
 
     document.getElementById("perfilResumo").textContent =
       total + (total === 1 ? " paciente" : " pacientes") + " · " +
-      cidades.length + (cidades.length === 1 ? " município" : " municípios") + " · " +
+      municipios + (municipios === 1 ? " município" : " municípios") + " · " +
       fraturas.length + (fraturas.length === 1 ? " tipo" : " tipos") + " de fratura";
   }
 
@@ -2471,7 +2547,8 @@
     hCid.textContent = "Cidades";
     var sCid = document.createElement("p");
     sCid.className = "sub";
-    sCid.textContent = cidades.length + (cidades.length === 1 ? " município" : " municípios") +
+    var municipios = contarMunicipios(cidades);
+    sCid.textContent = municipios + (municipios === 1 ? " município" : " municípios") +
       " na fila, da maior para a menor fatia";
     var caixaPizza = document.createElement("div");
     caixaPizza.className = "folha-pizza";
@@ -2545,7 +2622,7 @@
     var rodape = document.createElement("div");
     rodape.className = "folha-rodape";
     rodape.textContent = "Fila de " + total + " pacientes vinda da central, " +
-      cidades.length + " municípios e " + fraturas.length + " tipos de fratura. " +
+      municipios + " municípios e " + fraturas.length + " tipos de fratura. " +
       "Espera média de " + media.toFixed(1).replace(".", ",") + " dias, máxima de " +
       maiorEspera + ". O cálculo de vagas é referência de fluxo: confirme leito, sala e equipe.";
     folha.appendChild(rodape);

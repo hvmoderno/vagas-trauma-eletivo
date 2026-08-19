@@ -25,7 +25,13 @@ Funciona offline, e nenhum dado sai do computador — não há servidor nem arma
 
 ## Fila da central
 
-Cole a lista como ela chega (`número da regulação`, `fratura`, `cidade`, `dias`). A página
+Cole a lista como ela chega, nos dois formatos que a central usa:
+
+    4305053 cotovelo taua 8 dias
+    4328667 — cotovelo — Quixadá — 5 dias
+
+Quando a cidade não vem na linha, o paciente entra assim mesmo, marcado como
+`Não informada`, e a página avisa quantos vieram sem cidade. A página
 expande as abreviações conhecidas — `trans` e `colo` viram fraturas de fêmur, `tnz` vira
 tornozelo, `lac` vira luxação acromioclavicular, `boa` vira Boa Viagem, `pedra` vira Pedra
 Branca — e ordena por tempo de espera. Linhas não reconhecidas são contadas e avisadas,
