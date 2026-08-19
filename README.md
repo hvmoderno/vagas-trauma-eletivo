@@ -34,6 +34,17 @@ nunca descartadas em silêncio.
 Marque quem entra, escolha quantos pacientes por dia e copie o texto pronto, dia a dia,
 para reenviar à central.
 
+### Municípios
+
+A referência são os 20 municípios da Macro Sertão Central: Aiuaba, Arneiroz, Banabuiú,
+Boa Viagem, Canindé, Caridade, Choró, Ibaretama, Ibicuitinga, Itatira, Madalena, Milhã,
+Parambu, Paramoti, Pedra Branca, Quixadá, Quixeramobim, Senador Pompeu, Solonópole e Tauá.
+Chegam abreviados como `boa` (Boa Viagem), `pedra` (Pedra Branca) e `senador`
+(Senador Pompeu), e a página devolve a grafia completa, com acento.
+
+Cidade fora dessa relação é lida e contada normalmente, mas a página avisa quais são —
+costuma ser erro de digitação, e um `quixeramobin` viraria uma fatia a mais no gráfico.
+
 ## Exportar PDF
 
 Gera uma folha A4 com o perfil da demanda: números do cálculo, paciente mais antigo da
