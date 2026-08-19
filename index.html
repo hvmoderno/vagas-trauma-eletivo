@@ -20,6 +20,17 @@
     --seg-vagazero: #AE4E3B;
     --crit: #A63A2E;
     --trilho: #E6ECEE;
+    --fatia-borda: #FFFFFF;
+    --f0: #08403E;
+    --f1: #104A48;
+    --f2: #185452;
+    --f3: #1F5F5C;
+    --f4: #276966;
+    --f5: #2F736F;
+    --f6: #377D79;
+    --f7: #3E8883;
+    --f8: #46928D;
+    --f9: #4E9C97;
     --shadow: 0 1px 2px rgba(21, 33, 42, .06), 0 8px 24px -16px rgba(21, 33, 42, .28);
 
     --font-display: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
@@ -44,6 +55,28 @@
       --seg-vagazero: #D3765F;
       --crit: #E0755F;
       --trilho: #1E2C33;
+    --fatia-borda: #141E22;
+    --f0: #8FE8E0;
+    --f1: #84DCD4;
+    --f2: #79D0C9;
+    --f3: #6DC4BD;
+    --f4: #62B8B1;
+    --f5: #57ACA6;
+    --f6: #4CA09A;
+    --f7: #40948E;
+    --f8: #358883;
+    --f9: #2A7C77;
+      --fatia-borda: #141E22;
+      --f0: #8FE8E0;
+      --f1: #84DCD4;
+      --f2: #79D0C9;
+      --f3: #6DC4BD;
+      --f4: #62B8B1;
+      --f5: #57ACA6;
+      --f6: #4CA09A;
+      --f7: #40948E;
+      --f8: #358883;
+      --f9: #2A7C77;
       --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -18px rgba(0, 0, 0, .8);
     }
   }
@@ -64,6 +97,17 @@
     --seg-vagazero: #AE4E3B;
     --crit: #A63A2E;
     --trilho: #E6ECEE;
+    --fatia-borda: #FFFFFF;
+    --f0: #08403E;
+    --f1: #104A48;
+    --f2: #185452;
+    --f3: #1F5F5C;
+    --f4: #276966;
+    --f5: #2F736F;
+    --f6: #377D79;
+    --f7: #3E8883;
+    --f8: #46928D;
+    --f9: #4E9C97;
     --shadow: 0 1px 2px rgba(21, 33, 42, .06), 0 8px 24px -16px rgba(21, 33, 42, .28);
   }
 
@@ -83,6 +127,17 @@
     --seg-vagazero: #D3765F;
     --crit: #E0755F;
     --trilho: #1E2C33;
+    --fatia-borda: #141E22;
+    --f0: #8FE8E0;
+    --f1: #84DCD4;
+    --f2: #79D0C9;
+    --f3: #6DC4BD;
+    --f4: #62B8B1;
+    --f5: #57ACA6;
+    --f6: #4CA09A;
+    --f7: #40948E;
+    --f8: #358883;
+    --f9: #2A7C77;
     --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -18px rgba(0, 0, 0, .8);
   }
 
@@ -889,6 +944,36 @@
   .barra-linha:hover .barra-rotulo,
   .barra-linha:hover .barra-valor { color: var(--ink); }
 
+  .pizza-tela {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .legenda {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+    min-width: 150px;
+  }
+  .legenda .item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .legenda .item:hover { color: var(--ink); }
+  .legenda .qtd {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: 11.5px;
+    color: var(--ink-3);
+    margin-left: auto;
+  }
+
   .hist {
     display: grid;
     grid-auto-flow: column;
@@ -1340,7 +1425,7 @@
         <div class="grafico">
           <h3>Cidades</h3>
           <p class="sub" id="subCidades">10 municípios na fila</p>
-          <div class="barras" id="graficoCidades"></div>
+          <div class="pizza-tela" id="graficoCidades"></div>
         </div>
         <div class="grafico">
           <h3>Tipos de fratura</h3>
@@ -1956,7 +2041,7 @@
     tiles.appendChild(tile("3 dias ou mais", esperando3, Math.round((esperando3 / total) * 100) + "% da fila"));
 
     // Toda cidade e todo tipo aparecem, sempre — nada de linha "outras".
-    desenharBarras(document.getElementById("graficoCidades"), cidades, "paciente");
+    desenharPizza(document.getElementById("graficoCidades"), cidades, total);
     desenharBarras(document.getElementById("graficoFraturas"), fraturas, "paciente");
     desenharEspera(document.getElementById("graficoEspera"), fila);
 
@@ -2130,34 +2215,86 @@
       " A" + ri + "," + ri + " 0 " + grande + " 0 " + xi0 + "," + yi0 + " Z";
   }
 
-  function pizza(dados, total) {
-    var tam = 122, R = 58, ri = 32, cx = tam / 2, cy = tam / 2;
+  // No papel as cores são fixas (a folha é sempre branca); na tela vêm dos tokens
+  // do tema, para a pizza acompanhar o modo claro e o escuro.
+  function tomDaFatia(i, n, papel) {
+    if (papel) return corDaFatia(i, n);
+    var passo = n <= 1 ? 0 : Math.round((i / (n - 1)) * (RAMPA.length - 1));
+    return "var(--f" + passo + ")";
+  }
+
+  function pizza(dados, total, opcoes) {
+    opcoes = opcoes || {};
+    var papel = opcoes.papel !== false;
+    var tam = opcoes.tamanho || 122;
+    var R = tam / 2 - 3, ri = R * 0.55, cx = tam / 2, cy = tam / 2;
+    var borda = papel ? "#FFFFFF" : "var(--fatia-borda)";
     var svg = sv("svg", { width: tam, height: tam, viewBox: "0 0 " + tam + " " + tam,
                           role: "img", "aria-label": "pacientes por município" });
+
     if (dados.length === 1) {
-      svg.appendChild(sv("circle", { cx: cx, cy: cy, r: R, fill: RAMPA[0] }));
-      svg.appendChild(sv("circle", { cx: cx, cy: cy, r: ri, fill: "#FFFFFF" }));
+      var cheio = sv("circle", { cx: cx, cy: cy, r: R });
+      cheio.style.fill = tomDaFatia(0, 1, papel);
+      var furo = sv("circle", { cx: cx, cy: cy, r: ri });
+      furo.style.fill = papel ? "#FFFFFF" : "var(--card)";
+      svg.appendChild(cheio);
+      svg.appendChild(furo);
     } else {
       var ang = -Math.PI / 2;
       dados.forEach(function (d, i) {
         var fimAng = ang + (d.n / total) * Math.PI * 2;
-        svg.appendChild(sv("path", {
-          d: arco(cx, cy, R, ri, ang, fimAng),
-          fill: corDaFatia(i, dados.length),
-          stroke: "#FFFFFF", "stroke-width": 1.5
-        }));
+        var caminho = sv("path", { d: arco(cx, cy, R, ri, ang, fimAng) });
+        caminho.style.fill = tomDaFatia(i, dados.length, papel);
+        caminho.style.stroke = borda;
+        caminho.style.strokeWidth = "1.5";
+        var titulo = sv("title", {});
+        titulo.textContent = d.nome + ": " + d.n +
+          (d.n === 1 ? " paciente" : " pacientes") +
+          " · " + Math.round((d.n / total) * 100) + "%";
+        caminho.appendChild(titulo);
+        svg.appendChild(caminho);
         ang = fimAng;
       });
     }
-    var n1 = sv("text", { x: cx, y: cy + 1, "text-anchor": "middle",
-                          "font-size": 17, "font-weight": 700, fill: "#101010" });
+
+    var n1 = sv("text", { x: cx, y: cy + (papel ? 1 : 2), "text-anchor": "middle",
+                          "font-size": papel ? 17 : 22, "font-weight": 700 });
+    n1.style.fill = papel ? "#101010" : "var(--ink)";
     n1.textContent = total;
-    var n2 = sv("text", { x: cx, y: cy + 11, "text-anchor": "middle",
-                          "font-size": 6.5, fill: "#667" });
+    var n2 = sv("text", { x: cx, y: cy + (papel ? 11 : 15), "text-anchor": "middle",
+                          "font-size": papel ? 6.5 : 8.5 });
+    n2.style.fill = papel ? "#667" : "var(--ink-3)";
     n2.textContent = "pacientes";
     svg.appendChild(n1);
     svg.appendChild(n2);
     return svg;
+  }
+
+  // Pizza mais legenda, do jeito que a tela mostra.
+  function desenharPizza(alvo, dados, total) {
+    alvo.textContent = "";
+    alvo.appendChild(pizza(dados, total, { papel: false, tamanho: 150 }));
+    var leg = document.createElement("div");
+    leg.className = "legenda";
+    dados.forEach(function (d, i) {
+      var item = document.createElement("span");
+      item.className = "item";
+      item.title = d.nome + ": " + d.n + (d.n === 1 ? " paciente" : " pacientes");
+      var sw = sv("svg", { width: 9, height: 9, "aria-hidden": "true" });
+      var q = sv("rect", { width: 9, height: 9, rx: 2 });
+      q.style.fill = tomDaFatia(i, dados.length, false);
+      sw.appendChild(q);
+      var nome = document.createElement("span");
+      nome.textContent = d.nome;
+      var qtd = document.createElement("span");
+      qtd.className = "qtd";
+      qtd.textContent = d.n + " · " + Math.round((d.n / total) * 100) + "%";
+      item.appendChild(sw);
+      item.appendChild(nome);
+      item.appendChild(qtd);
+      leg.appendChild(item);
+    });
+    alvo.appendChild(leg);
   }
 
   // Barra em SVG, e não em CSS: o Chrome imprime sem fundos por padrão, então
