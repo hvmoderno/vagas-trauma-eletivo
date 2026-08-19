@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vagas para trauma eletivo</title>
+<style>
+  :root {
+    --ground: #F1F4F5;
+    --card: #FFFFFF;
+    --card-2: #F8FAFA;
+    --ink: #15212A;
+    --ink-2: #56676F;
+    --ink-3: #83949B;
+    --line: #D6DFE1;
+    --line-strong: #B9C6C9;
+    --accent: #0F6E6B;
+    --accent-bright: #148F8A;
+    --seg-eletiva: #3E6491;
+    --seg-ambul: #7A5D93;
+    --seg-vagazero: #AE4E3B;
+    --crit: #A63A2E;
+    --trilho: #E6ECEE;
+    --shadow: 0 1px 2px rgba(21, 33, 42, .06), 0 8px 24px -16px rgba(21, 33, 42, .28);
+
+    --font-display: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-data: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0D1417;
+      --card: #141E22;
+      --card-2: #18242A;
+      --ink: #E7EEEF;
+      --ink-2: #9FB0B5;
+      --ink-3: #75878D;
+      --line: #26343A;
+      --line-strong: #37484F;
+      --accent: #34B3AC;
+      --accent-bright: #47C9C1;
+      --seg-eletiva: #6D93C0;
+      --seg-ambul: #A487BC;
+      --seg-vagazero: #D3765F;
+      --crit: #E0755F;
+      --trilho: #1E2C33;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -18px rgba(0, 0, 0, .8);
+    }
+  }
+
+  :root[data-theme="light"] {
+    --ground: #F1F4F5;
+    --card: #FFFFFF;
+    --card-2: #F8FAFA;
+    --ink: #15212A;
+    --ink-2: #56676F;
+    --ink-3: #83949B;
+    --line: #D6DFE1;
+    --line-strong: #B9C6C9;
+    --accent: #0F6E6B;
+    --accent-bright: #148F8A;
+    --seg-eletiva: #3E6491;
+    --seg-ambul: #7A5D93;
+    --seg-vagazero: #AE4E3B;
+    --crit: #A63A2E;
+    --trilho: #E6ECEE;
+    --shadow: 0 1px 2px rgba(21, 33, 42, .06), 0 8px 24px -16px rgba(21, 33, 42, .28);
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0D1417;
+    --card: #141E22;
+    --card-2: #18242A;
+    --ink: #E7EEEF;
+    --ink-2: #9FB0B5;
+    --ink-3: #75878D;
+    --line: #26343A;
+    --line-strong: #37484F;
+    --accent: #34B3AC;
+    --accent-bright: #47C9C1;
+    --seg-eletiva: #6D93C0;
+    --seg-ambul: #A487BC;
+    --seg-vagazero: #D3765F;
+    --crit: #E0755F;
+    --trilho: #1E2C33;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -18px rgba(0, 0, 0, .8);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: clamp(20px, 4vw, 56px) clamp(16px, 4vw, 32px) 64px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 3vw, 36px);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  header.masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: clamp(18px, 2.5vw, 26px);
+  }
+  header.masthead h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(28px, 4.4vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  header.masthead p {
+    margin: 0;
+    max-width: 62ch;
+    color: var(--ink-2);
+  }
+  .window-note {
+    font-family: var(--font-data);
+    font-size: 12.5px;
+    color: var(--ink-3);
+  }
+
+  .cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    gap: clamp(20px, 2.5vw, 32px);
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .cols { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* ---------- inputs ---------- */
+
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+  }
+
+  .panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .panel-head h2 {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .field {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr) 104px;
+    align-items: center;
+    gap: 0 14px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .field:last-child { border-bottom: 0; }
+
+  .sign {
+    font-family: var(--font-data);
+    font-size: 19px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--ink-3);
+  }
+  .field[data-op="add"] .sign { color: var(--accent); }
+
+  .field label {
+    display: block;
+    font-size: 14.5px;
+    font-weight: 550;
+    line-height: 1.35;
+    cursor: pointer;
+  }
+  .field .hint {
+    grid-column: 2;
+    margin-top: 3px;
+    font-size: 12.5px;
+    color: var(--ink-3);
+    max-width: 44ch;
+  }
+  .swatch {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 7px;
+    vertical-align: 1px;
+  }
+
+  .field input {
+    grid-row: 1 / span 2;
+    grid-column: 3;
+    width: 100%;
+    padding: 10px 12px;
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: 20px;
+    text-align: right;
+    color: var(--ink);
+    background: var(--card-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+  }
+  .field input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+  .field input::-webkit-outer-spin-button,
+  .field input::-webkit-inner-spin-button { opacity: .45; }
+
+  /* ---------- nível de contingência ---------- */
+
+  .pcp {
+    padding: 16px 20px 18px;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    min-inline-size: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .pcp legend {
+    float: left;
+    width: 100%;
+    padding: 0;
+  }
+  .pcp .hint {
+    clear: both;
+    font-size: 12.5px;
+    color: var(--ink-3);
+    margin: 5px 0 12px;
+    max-width: 54ch;
+  }
+  .pcp-scale {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  @media (max-width: 560px) {
+    .pcp-scale { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .pcp-opt { display: block; position: relative; }
+  .pcp-opt input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .pcp-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    height: 100%;
+    padding: 9px 11px;
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+    background: var(--card-2);
+    color: var(--ink-3);
+    cursor: pointer;
+  }
+  .pcp-box:hover { border-color: var(--ink-3); }
+  .pcp-opt input:focus-visible + .pcp-box {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .pcp-opt input:checked + .pcp-box {
+    border-color: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--accent);
+    background: var(--card);
+    color: var(--accent);
+  }
+  .pcp-opt[data-level="3"] input:checked + .pcp-box {
+    border-color: var(--crit);
+    box-shadow: inset 0 0 0 1px var(--crit);
+    color: var(--crit);
+  }
+  .pcp-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+  .pcp-opt input:checked + .pcp-box .pcp-name { color: inherit; }
+  .pcp-range,
+  .pcp-rate {
+    font-family: var(--font-data);
+    font-size: 11.5px;
+    letter-spacing: -.01em;
+  }
+  .pcp-rate { white-space: nowrap; }
+  .pcp-range {
+    color: var(--ink-2);
+    line-height: 1.35;
+  }
+  .pcp-opt input:checked + .pcp-box .pcp-range { color: inherit; }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--line);
+    background: var(--card-2);
+    flex-wrap: wrap;
+  }
+  button {
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 550;
+    padding: 9px 15px;
+    border-radius: 3px;
+    border: 1px solid var(--line-strong);
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- result ---------- */
+
+  .result {
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  @media (max-width: 860px) {
+    .result { position: static; }
+  }
+
+  .readout {
+    padding: 24px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .readout .big {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(58px, 11vw, 84px);
+    font-weight: 600;
+    line-height: .96;
+    letter-spacing: -.03em;
+    color: var(--accent);
+  }
+  .readout[data-state="none"] .big,
+  .readout[data-state="over"] .big,
+  .readout[data-state="block"] .big { color: var(--crit); }
+  .readout .unit {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    max-width: 32ch;
+  }
+  .readout .basis {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: 12px;
+    color: var(--ink-3);
+    margin-top: 4px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 5px 11px 5px 9px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    margin-bottom: 4px;
+  }
+  .pill::before {
+    content: "";
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .readout[data-state="open"] .pill { color: var(--accent); }
+  .readout[data-state="none"] .pill,
+  .readout[data-state="over"] .pill,
+  .readout[data-state="block"] .pill { color: var(--crit); }
+
+  .bar-block { padding: 18px 20px; border-bottom: 1px solid var(--line); }
+  .bar-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .bar-title .cap {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  .bar {
+    position: relative;
+    display: flex;
+    height: 26px;
+    width: 100%;
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--card-2);
+    border: 1px solid var(--line);
+  }
+  .bar span {
+    display: block;
+    height: 100%;
+    transition: width .18s ease-out;
+  }
+  .bar .s-eletiva { background: var(--seg-eletiva); }
+  .bar .s-ambul { background: var(--seg-ambul); }
+  .bar .s-vagazero { background: var(--seg-vagazero); }
+  .bar .s-livre {
+    background: repeating-linear-gradient(135deg, var(--accent) 0 6px, var(--accent-bright) 6px 12px);
+  }
+  .bar .s-retido {
+    background: repeating-linear-gradient(135deg, var(--line-strong) 0 5px, var(--line) 5px 10px);
+  }
+  .bar .marker {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--ink);
+    display: none;
+  }
+  .bar[data-over="1"] .marker { display: block; }
+  .bar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .bar-legend span { display: inline-flex; align-items: center; }
+  .bar-legend span.legend-over { display: none; color: var(--crit); }
+  .bar[data-over="1"] ~ .bar-legend span.legend-over { display: inline-flex; }
+  .bar-legend span.legend-retido { display: none; }
+  .bar[data-retido="1"] ~ .bar-legend span.legend-retido { display: inline-flex; }
+  .swatch-retido {
+    background: repeating-linear-gradient(135deg, var(--line-strong) 0 3px, var(--line) 3px 6px);
+    border: 1px solid var(--line-strong);
+  }
+  .legend-rule {
+    display: inline-block;
+    width: 2px;
+    height: 11px;
+    background: var(--ink);
+    margin-right: 7px;
+    vertical-align: -1px;
+  }
+
+  table.ledger {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  table.ledger th, table.ledger td {
+    padding: 9px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  table.ledger th {
+    font-weight: 550;
+    color: var(--ink-2);
+  }
+  table.ledger td {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    width: 92px;
+    white-space: nowrap;
+  }
+  table.ledger tr.total th { font-weight: 650; color: var(--ink); }
+  table.ledger tr.total td { font-weight: 650; color: var(--accent); }
+  table.ledger tr.total.neg td { color: var(--crit); }
+  table.ledger tr:last-child th, table.ledger tr:last-child td { border-bottom: 0; }
+
+  .formula {
+    padding: 14px 20px;
+    background: var(--card-2);
+    border-top: 1px solid var(--line);
+    font-family: var(--font-data);
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink-2);
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .notes {
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px 28px;
+  }
+  .notes h3 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 5px;
+  }
+  .notes p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  /* ---------- fila da central ---------- */
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .fila-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .fila-head h2 {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .contador {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  .contador[data-estado="cheio"] { color: var(--accent); }
+  .contador[data-estado="excedido"] { color: var(--crit); font-weight: 600; }
+
+  .colar {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .colar label {
+    font-size: 14.5px;
+    font-weight: 550;
+  }
+  .colar .hint {
+    font-size: 12.5px;
+    color: var(--ink-3);
+    max-width: 70ch;
+  }
+  .colar textarea {
+    width: 100%;
+    min-height: 108px;
+    resize: vertical;
+    padding: 11px 12px;
+    font-family: var(--font-data);
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--card-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+  }
+  .colar textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+  .colar .aviso {
+    font-family: var(--font-data);
+    font-size: 12px;
+    color: var(--crit);
+  }
+  .colar .aviso:empty { display: none; }
+
+  .fila-wrap { overflow-x: auto; }
+
+  table.fila {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  table.fila caption {
+    caption-side: top;
+    text-align: left;
+    padding: 14px 20px 0;
+    font-size: 12.5px;
+    color: var(--ink-3);
+  }
+  table.fila th, table.fila td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  table.fila thead th {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom-color: var(--line-strong);
+  }
+  table.fila th:first-child, table.fila td:first-child { padding-left: 20px; }
+  table.fila th:last-child, table.fila td:last-child { padding-right: 20px; }
+  table.fila td.reg,
+  table.fila td.espera {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+  }
+  table.fila td.espera { text-align: right; }
+  table.fila td.marca { width: 34px; }
+  table.fila td.marca input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  table.fila tbody tr.marcado { background: var(--card-2); }
+  table.fila tbody tr.marcado td.fratura { font-weight: 600; }
+  table.fila tbody tr.acima td { color: var(--crit); }
+  table.fila tbody tr:last-child td { border-bottom: 0; }
+  .fila-vazia {
+    padding: 18px 20px 22px;
+    font-size: 13.5px;
+    color: var(--ink-3);
+  }
+
+  /* ---------- escala por dia ---------- */
+
+  .escala {
+    border-top: 1px solid var(--line);
+    padding: 16px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .escala-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .por-dia {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .por-dia label {
+    font-size: 14.5px;
+    font-weight: 550;
+  }
+  .por-dia input {
+    width: 76px;
+    padding: 7px 10px;
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: 16px;
+    text-align: right;
+    color: var(--ink);
+    background: var(--card-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+  }
+  .por-dia input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+
+  .dias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+    gap: 8px;
+  }
+  .dia {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 11px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--card-2);
+  }
+  .dia-nome {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+  .dia-data {
+    font-family: var(--font-data);
+    font-size: 11.5px;
+    color: var(--ink-3);
+  }
+  .dia input {
+    width: 52px;
+    padding: 5px 8px;
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+    text-align: right;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line-strong);
+    border-radius: 3px;
+  }
+  .dia input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+
+  .saida {
+    margin: 0;
+    padding: 14px 16px;
+    background: var(--card-2);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    font-family: var(--font-data);
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: var(--ink);
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+  .escala-acoes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .escala-acoes .ok {
+    font-family: var(--font-data);
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  /* ---------- perfil da fila ---------- */
+
+  .perfil-corpo {
+    padding: 16px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+  }
+  .tile {
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--card-2);
+  }
+  .tile .rotulo {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .tile .valor {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: 25px;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+    color: var(--ink);
+  }
+  .tile .nota {
+    font-size: 11.5px;
+    color: var(--ink-3);
+  }
+
+  .graficos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px 28px;
+  }
+  .grafico h3 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 2px;
+  }
+  .grafico .sub {
+    font-size: 12px;
+    color: var(--ink-3);
+    margin: 0 0 11px;
+  }
+
+  .barras {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .barra-linha {
+    display: grid;
+    grid-template-columns: minmax(72px, 33%) minmax(0, 1fr) 26px;
+    align-items: center;
+    gap: 10px;
+  }
+  .barra-rotulo {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .barra-trilho {
+    height: 13px;
+    border-radius: 2px;
+    background: var(--trilho);
+  }
+  .barra-fill {
+    height: 100%;
+    min-width: 2px;
+    border-radius: 2px 4px 4px 2px;
+    background: var(--accent);
+  }
+  .barra-valor {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: 12px;
+    text-align: right;
+    color: var(--ink-2);
+  }
+  .barra-linha:hover .barra-rotulo,
+  .barra-linha:hover .barra-valor { color: var(--ink); }
+
+  .hist {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 5px;
+    align-items: end;
+  }
+  .hist-col {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    min-width: 0;
+  }
+  .hist-num,
+  .hist-dia {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+    font-size: 11px;
+    text-align: center;
+  }
+  .hist-num { color: var(--ink-2); }
+  .hist-dia { color: var(--ink-3); }
+  .hist-caixa {
+    height: 96px;
+    display: flex;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .hist-bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    background: var(--accent);
+  }
+  .hist-col[data-vazio="1"] .hist-bar { background: var(--trilho); }
+  .hist-col:hover .hist-num { color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar span { transition: none; }
+  }
+
+  /* ---------- exportar ---------- */
+
+  .exportar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .exportar .hint {
+    font-size: 12.5px;
+    color: var(--ink-3);
+    margin: 0;
+  }
+  .exportar .alerta {
+    font-family: var(--font-data);
+    font-size: 12px;
+    color: var(--crit);
+  }
+  .exportar .alerta:empty { display: none; }
+
+  /* A folha do PDF é montada à parte: na tela não aparece, na impressão é a
+     única coisa que sai — assim cabe em uma página em vez de encolher o site. */
+  .folha { display: none; }
+
+  /* Modo folha: mostra na tela exatamente o que iria para o papel. */
+  .folha-barra { display: none; }
+  body[data-folha="1"] .wrap > *:not(.folha):not(.folha-barra) { display: none; }
+  body[data-folha="1"] .folha-barra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  body[data-folha="1"] .folha-barra .hint {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 70ch;
+  }
+  body[data-folha="1"] .folha {
+    display: block;
+    width: 695px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 26px 28px 30px;
+    background: #FFFFFF;
+    color: #101010;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    box-shadow: var(--shadow);
+    font-size: 11px;
+  }
+
+  @media print {
+    .wrap > * { display: none !important; }
+    .wrap > .folha { display: block !important; }
+    .wrap { padding: 0; gap: 0; max-width: none; }
+    body { background: #fff; color: #101010; font-size: 11px; }
+    /* no papel a folha não precisa da moldura do modo de tela */
+    body[data-folha="1"] .folha {
+      width: auto;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 12mm 13mm;
+  }
+
+  .folha h1 {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .folha .folha-meta {
+    font-family: var(--font-data);
+    font-size: 10.5px;
+    color: #444;
+    margin-top: 2px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #9aa;
+  }
+  .folha-resumo {
+    display: flex;
+    gap: 26px;
+    flex-wrap: wrap;
+    padding: 9px 0;
+    border-bottom: 1px solid #ccd;
+  }
+  .folha-resumo div {
+    display: flex;
+    flex-direction: column;
+  }
+  .folha-resumo .k {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #667;
+  }
+  .folha-resumo .v {
+    font-family: var(--font-data);
+    font-size: 15px;
+    font-weight: 600;
+    color: #101010;
+  }
+  .folha-conta {
+    font-family: var(--font-data);
+    font-size: 10px;
+    color: #445;
+    padding: 6px 0 10px;
+    border-bottom: 1px solid #ccd;
+  }
+  .folha-destaque {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 7px 0;
+    border-bottom: 1px solid #ccd;
+    font-size: 10.5px;
+    color: #101010;
+  }
+  .folha-destaque .k {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #667;
+    white-space: nowrap;
+  }
+  .folha-destaque .v { font-family: var(--font-data); }
+
+  .folha-graf {
+    display: grid;
+    grid-template-columns: 262px minmax(0, 1fr);
+    gap: 16px 24px;
+    padding-top: 11px;
+  }
+  .folha-bloco { break-inside: avoid; }
+  .folha-bloco.largo { grid-column: 1 / -1; }
+  .folha-bloco h2 {
+    font-size: 10.5px;
+    font-weight: 700;
+    margin: 0 0 1px;
+    color: #101010;
+  }
+  .folha-bloco .sub {
+    font-size: 8.5px;
+    color: #667;
+    margin: 0 0 7px;
+  }
+
+  .folha-pizza {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .folha-legenda {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+  .folha-legenda span.item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8.6px;
+    line-height: 1.35;
+    color: #1a1a1a;
+    white-space: nowrap;
+  }
+  .folha-legenda .qtd {
+    font-family: var(--font-data);
+    color: #556;
+    margin-left: auto;
+  }
+
+  .folha-barra-linha {
+    display: grid;
+    grid-template-columns: minmax(66px, 42%) minmax(0, 1fr) 18px;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 3px;
+  }
+  .folha-barra-linha .rot {
+    font-size: 8.8px;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .folha-barra-linha .num {
+    font-family: var(--font-data);
+    font-size: 8.8px;
+    text-align: right;
+    color: #445;
+  }
+
+  .folha-rodape {
+    margin-top: 10px;
+    padding-top: 6px;
+    border-top: 1px solid #ccd;
+    font-size: 9px;
+    line-height: 1.5;
+    color: #556;
+  }
+</style>
+
+</head><body><div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">Ortopedia e traumatologia · gestão de vagas</div>
+    <h1>Quantos pacientes eletivos posso autorizar</h1>
+    <p>Informe os números da semana e quantos pacientes estão na emergência agora. A calculadora parte do volume operado, desconta o que já está comprometido e aplica o corte do nível de contingência.</p>
+    <div class="window-note" id="windowNote">Últimos 7 dias: 13/08 a 19/08   ·   Próximos 7 dias: 19/08 a 25/08</div>
+  </header>
+
+  <div class="cols">
+    <section class="panel" aria-label="Dados do período">
+      <div class="panel-head">
+        <h2>Dados do período</h2>
+        <span class="eyebrow">pacientes</span>
+      </div>
+
+      <div class="fields">
+        <div class="field" data-op="add">
+          <div class="sign" aria-hidden="true">+</div>
+          <label for="operados">Pacientes operados nos últimos 7 dias</label>
+          <p class="hint">Capacidade cirúrgica efetivamente realizada na semana que passou.</p>
+          <input id="operados" type="number" min="0" step="1" inputmode="numeric" value="0">
+        </div>
+
+        <div class="field" data-op="sub">
+          <div class="sign" aria-hidden="true">−</div>
+          <label for="eletivas"><span class="swatch" style="background: var(--seg-eletiva)"></span>Pacientes eletivos previstos para os próximos 7 dias</label>
+          <p class="hint">Cirurgias eletivas já agendadas ou com entrada autorizada.</p>
+          <input id="eletivas" type="number" min="0" step="1" inputmode="numeric" value="0">
+        </div>
+
+        <div class="field" data-op="sub">
+          <div class="sign" aria-hidden="true">−</div>
+          <label for="ambulatorio"><span class="swatch" style="background: var(--seg-ambul)"></span>Pacientes internados pelo ambulatório nos últimos 7 dias</label>
+          <p class="hint">Pacientes que entraram pelo ambulatório e ainda ocupam a fila cirúrgica.</p>
+          <input id="ambulatorio" type="number" min="0" step="1" inputmode="numeric" value="0">
+        </div>
+
+        <div class="field" data-op="sub">
+          <div class="sign" aria-hidden="true">−</div>
+          <label for="vagazero"><span class="swatch" style="background: var(--seg-vagazero)"></span>Pacientes com fratura em vaga zero nos últimos 7 dias</label>
+          <p class="hint">Encaminhamentos por vaga zero, de entrada obrigatória.</p>
+          <input id="vagazero" type="number" min="0" step="1" inputmode="numeric" value="0">
+        </div>
+      </div>
+
+      <fieldset class="pcp">
+        <legend class="eyebrow">Nível de contingência</legend>
+        <p class="hint">Marque a faixa em que a emergência está agora. O nível corta o resultado antes de você autorizar, arredondando para baixo.</p>
+        <div class="pcp-scale">
+          <label class="pcp-opt" data-level="0">
+            <input type="radio" name="pcp" value="1" data-level="0" data-range="até 28 pacientes" checked="">
+            <span class="pcp-box">
+              <span class="pcp-name">Rotina</span>
+              <span class="pcp-range">até 28 pacientes</span>
+              <span class="pcp-rate">100%</span>
+            </span>
+          </label>
+          <label class="pcp-opt" data-level="1">
+            <input type="radio" name="pcp" value="0.8" data-level="1" data-range="29 a 33 pacientes">
+            <span class="pcp-box">
+              <span class="pcp-name">Grau 1</span>
+              <span class="pcp-range">29 a 33 pacientes</span>
+              <span class="pcp-rate">80%</span>
+            </span>
+          </label>
+          <label class="pcp-opt" data-level="2">
+            <input type="radio" name="pcp" value="0.5" data-level="2" data-range="34 a 42 pacientes">
+            <span class="pcp-box">
+              <span class="pcp-name">Grau 2</span>
+              <span class="pcp-range">34 a 42 pacientes</span>
+              <span class="pcp-rate">50%</span>
+            </span>
+          </label>
+          <label class="pcp-opt" data-level="3">
+            <input type="radio" name="pcp" value="0" data-level="3" data-range="43 pacientes ou mais">
+            <span class="pcp-box">
+              <span class="pcp-name">Grau 3</span>
+              <span class="pcp-range">43 pacientes ou mais</span>
+              <span class="pcp-rate">não receber</span>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="button" id="btnClear">Zerar campos</button>
+      </div>
+    </section>
+
+    <section class="panel result" aria-label="Resultado" aria-live="polite">
+      <div class="readout" id="readout" data-state="open">
+        <span class="pill" id="statusPill">Pode autorizar</span>
+        <div class="big" id="bigNumber">16</div>
+        <div class="unit" id="bigUnit">pacientes eletivos autorizáveis nesta semana</div>
+        <div class="basis" id="basis">cálculo bruto 20  ·  grau 1 (80%)</div>
+      </div>
+
+      <div class="bar-block">
+        <div class="bar-title">
+          <span class="eyebrow">Ocupação da capacidade</span>
+          <span class="cap" id="capLabel">base 40  ·  comprometido 20</span>
+        </div>
+        <div class="bar" id="bar" role="img" aria-label="Distribuição da capacidade operada entre compromissos já assumidos e vagas livres">
+          <span class="s-eletiva" id="segEletiva" style="width:0%"></span>
+          <span class="s-ambul" id="segAmbul" style="width:0%"></span>
+          <span class="s-vagazero" id="segVagaZero" style="width:0%"></span>
+          <span class="s-livre" id="segLivre" style="width:0%"></span>
+          <span class="s-retido" id="segRetido" style="width:0%"></span>
+          <div class="marker" id="marker" style="left:100%"></div>
+        </div>
+        <div class="bar-legend">
+          <span><span class="swatch" style="background: var(--seg-eletiva)"></span>Eletivas previstas</span>
+          <span><span class="swatch" style="background: var(--seg-ambul)"></span>Ambulatório</span>
+          <span><span class="swatch" style="background: var(--seg-vagazero)"></span>Vaga zero</span>
+          <span><span class="swatch" style="background: var(--accent)"></span>Livre para eletivos</span>
+          <span class="legend-retido"><span class="swatch swatch-retido"></span>Retido pela contingência</span>
+          <span class="legend-over"><span class="legend-rule"></span>Limite da capacidade — o que passa dela é excedente</span>
+        </div>
+      </div>
+
+      <table class="ledger">
+        <tbody>
+          <tr><th scope="row">Pacientes operados (últimos 7 dias)</th><td id="lgOperados">40</td></tr>
+          <tr><th scope="row">Eletivos previstos (próximos 7 dias)</th><td id="lgEletivas">−6</td></tr>
+          <tr><th scope="row">Pacientes do ambulatório</th><td id="lgAmbulatorio">−5</td></tr>
+          <tr><th scope="row">Pacientes em vaga zero</th><td id="lgVagaZero">−9</td></tr>
+          <tr><th scope="row" id="lgPcpLabel">Retido pelo grau 1 (80%)</th><td id="lgPcp">−4</td></tr>
+          <tr class="total"><th scope="row">Pacientes eletivos autorizáveis</th><td id="lgTotal">16</td></tr>
+        </tbody>
+      </table>
+
+      <div class="formula" id="formula">40 − 6 − 5 − 9 = 20   ·   grau 1 → 20 × 80% ↓ = 16</div>
+    </section>
+  </div>
+
+  <section class="panel fila-panel" aria-label="Fila da central de regulação">
+    <div class="fila-head">
+      <h2>Fila da central</h2>
+      <div class="contador" id="contador" data-estado="ok">14 de 16 vagas marcadas</div>
+    </div>
+
+    <div class="colar">
+      <label for="listaBruta">Cole aqui a lista da regulação</label>
+      <p class="hint">Uma linha por paciente, do jeito que ela chega: número da regulação, fratura, cidade e o tempo de espera. Abreviações conhecidas são expandidas na tabela.</p>
+      <textarea id="listaBruta" spellcheck="false" placeholder="0000001 cotovelo taua 8 dias
+0000002 umero proximal quixada 7 dias
+0000003 trans boa 2 dias"></textarea>
+      <div class="aviso" id="avisoLinhas"></div>
+    </div>
+
+    <div class="fila-wrap">
+      <table class="fila" id="tabelaFila" hidden="">
+        <caption id="filaCaption"></caption>
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">Marcar</span></th>
+            <th scope="col">Regulação</th>
+            <th scope="col">Fratura</th>
+            <th scope="col">Cidade</th>
+            <th scope="col">Espera</th>
+          </tr>
+        </thead>
+        <tbody id="corpoFila"></tbody>
+      </table>
+      <p class="fila-vazia" id="filaVazia">Cole a lista acima para montar a tabela.</p>
+    </div>
+
+    <div class="escala" id="escala" hidden="">
+      <div class="escala-head">
+        <div class="eyebrow">Distribuição por dia</div>
+        <div class="por-dia">
+          <label for="porDia">Pacientes por dia</label>
+          <input id="porDia" type="number" min="1" step="1" value="4">
+        </div>
+      </div>
+      <div class="dias" id="dias"></div>
+      <pre class="saida" id="saidaEscala"></pre>
+      <div class="escala-acoes">
+        <button type="button" id="btnCopiarEscala">Copiar lista</button>
+        <span class="ok" id="okCopia"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel perfil" id="perfil" aria-label="Perfil da fila" hidden="">
+    <div class="panel-head">
+      <h2>Perfil da fila</h2>
+      <div class="contador" id="perfilResumo"></div>
+    </div>
+    <div class="perfil-corpo">
+      <div class="tiles" id="tiles"></div>
+      <div class="graficos">
+        <div class="grafico">
+          <h3>Cidades</h3>
+          <p class="sub" id="subCidades">10 municípios na fila</p>
+          <div class="barras" id="graficoCidades"></div>
+        </div>
+        <div class="grafico">
+          <h3>Tipos de fratura</h3>
+          <p class="sub" id="subFraturas">9 tipos de fratura na fila</p>
+          <div class="barras" id="graficoFraturas"></div>
+        </div>
+      </div>
+      <div class="grafico">
+        <h3>Tempo de espera</h3>
+        <p class="sub">pacientes por dia de espera na central</p>
+        <div class="hist" id="graficoEspera"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="exportar">
+    <button type="button" id="btnPdf">Exportar PDF</button>
+    <p class="hint">Abre a janela de impressão. No destino, escolha <strong>Salvar como PDF</strong>.</p>
+    <span class="alerta" id="alertaPdf"></span>
+  </div>
+
+  <div class="folha-barra">
+    <button type="button" id="btnFecharFolha">Voltar</button>
+    <button type="button" id="btnImprimirFolha">Abrir janela de impressão</button>
+    <p class="hint" id="folhaAviso"></p>
+  </div>
+
+  <section class="folha" id="folha" aria-hidden="true" style=""></section>
+
+  <div class="notes">
+    <div>
+      <h3>Como o número é lido</h3>
+      <p>O volume operado na semana anterior serve de referência de capacidade. Tudo que já está comprometido — eletivas agendadas, entradas pelo ambulatório e vaga zero — é descontado dessa referência.</p>
+    </div>
+    <div>
+      <h3>O corte da contingência</h3>
+      <p>O número de pacientes na emergência define o nível: até 28 é rotina e libera tudo; de 29 a 33 é grau 1 e libera 80%; de 34 a 42 é grau 2 e libera 50%; a partir de 43 é grau 3, em que a recomendação é não receber. O corte arredonda para baixo, e o que ele segurou aparece hachurado em cinza na barra.</p>
+    </div>
+    <div>
+      <h3>Resultado zero ou negativo</h3>
+      <p>Quando os compromissos igualam ou passam a capacidade, não há vaga eletiva a autorizar. O excedente aparece em vermelho na barra e indica o tamanho da demanda já acima da referência.</p>
+    </div>
+    <div>
+      <h3>Antes de autorizar</h3>
+      <p>O cálculo é uma referência de fluxo, não uma reserva de leito ou de sala. Confirme leito, sala e equipe disponíveis antes de liberar cada entrada.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  var ids = ["operados", "eletivas", "ambulatorio", "vagazero"];
+  var el = {};
+  ids.forEach(function (id) { el[id] = document.getElementById(id); });
+
+  function num(input) {
+    var v = parseInt(input.value, 10);
+    if (isNaN(v) || v < 0) return 0;
+    return v;
+  }
+
+  function fmtDate(d) {
+    return d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+  }
+
+  function setWindowNote() {
+    var today = new Date();
+    var past = new Date(today.getTime() - 6 * 86400000);
+    var ahead = new Date(today.getTime() + 6 * 86400000);
+    document.getElementById("windowNote").textContent =
+      "Últimos 7 dias: " + fmtDate(past) + " a " + fmtDate(today) +
+      "   ·   Próximos 7 dias: " + fmtDate(today) + " a " + fmtDate(ahead);
+  }
+
+  function pct(part, base) {
+    if (base <= 0) return 0;
+    return Math.min(100, (part / base) * 100);
+  }
+
+  var NOMES = { "0": "rotina", "1": "grau 1", "2": "grau 2", "3": "grau 3" };
+
+  function pcpChoice() {
+    var marcado = document.querySelector('input[name="pcp"]:checked');
+    var level = marcado ? marcado.dataset.level : "0";
+    var rate = marcado ? parseFloat(marcado.value) : 1;
+    return {
+      level: level,
+      rate: rate,
+      name: NOMES[level],
+      pctLabel: level === "3" ? "não receber" : Math.round(rate * 100) + "%",
+      range: marcado ? marcado.dataset.range : "até 28 pacientes"
+    };
+  }
+
+  function state() {
+    var op = num(el.operados);
+    var ele = num(el.eletivas);
+    var amb = num(el.ambulatorio);
+    var vz = num(el.vagazero);
+    var committed = ele + amb + vz;
+    var saldo = op - committed;
+    var pcp = pcpChoice();
+
+    // O percentual do PCP incide apenas sobre saldo positivo: quando a semana já
+    // fechou no zero ou no negativo, não há vaga sobre a qual aplicar percentual.
+    var autorizadas, retidas;
+    if (pcp.level === "3") {
+      autorizadas = 0;
+      retidas = Math.max(0, saldo);
+    } else if (saldo <= 0) {
+      autorizadas = saldo;
+      retidas = 0;
+    } else {
+      autorizadas = Math.floor(saldo * pcp.rate);
+      retidas = saldo - autorizadas;
+    }
+
+    return {
+      op: op, ele: ele, amb: amb, vz: vz,
+      committed: committed, saldo: saldo,
+      pcp: pcp, autorizadas: autorizadas, retidas: retidas
+    };
+  }
+
+  function render() {
+    var s = state();
+
+    document.getElementById("lgOperados").textContent = s.op;
+    document.getElementById("lgEletivas").textContent = s.ele ? "−" + s.ele : "0";
+    document.getElementById("lgAmbulatorio").textContent = s.amb ? "−" + s.amb : "0";
+    document.getElementById("lgVagaZero").textContent = s.vz ? "−" + s.vz : "0";
+    document.getElementById("lgPcpLabel").textContent =
+      s.pcp.level === "0"
+        ? "Retido pela contingência"
+        : "Retido pelo " + s.pcp.name + " (" + s.pcp.pctLabel + ")";
+    document.getElementById("lgPcp").textContent = s.retidas ? "−" + s.retidas : "0";
+    document.getElementById("lgTotal").textContent = s.autorizadas;
+
+    var totalRow = document.querySelector("table.ledger tr.total");
+    totalRow.classList.toggle("neg", s.autorizadas <= 0);
+
+    var readout = document.getElementById("readout");
+    var big = document.getElementById("bigNumber");
+    var unit = document.getElementById("bigUnit");
+    var pill = document.getElementById("statusPill");
+
+    var basis = document.getElementById("basis");
+
+    if (s.pcp.level === "3") {
+      readout.dataset.state = "block";
+      big.textContent = "0";
+      pill.textContent = "Grau 3 — não receber";
+      unit.textContent = "com " + s.pcp.range + " na emergência a recomendação é não receber eletivos";
+    } else if (s.autorizadas > 0) {
+      readout.dataset.state = "open";
+      big.textContent = s.autorizadas;
+      pill.textContent = "Pode autorizar";
+      unit.textContent = s.autorizadas === 1
+        ? "paciente eletivo autorizável nesta semana"
+        : "pacientes eletivos autorizáveis nesta semana";
+    } else if (s.saldo > 0) {
+      readout.dataset.state = "none";
+      big.textContent = "0";
+      pill.textContent = "Sem vaga eletiva";
+      unit.textContent = s.pcp.pctLabel + " de " + s.saldo +
+        (s.saldo === 1 ? " vaga, arredondado" : " vagas, arredondado") +
+        " para baixo, não deixa vaga nesta semana";
+    } else if (s.saldo === 0) {
+      readout.dataset.state = "none";
+      big.textContent = "0";
+      pill.textContent = "Capacidade tomada";
+      unit.textContent = "a capacidade da semana já está inteiramente comprometida";
+    } else {
+      readout.dataset.state = "over";
+      big.textContent = s.saldo;
+      pill.textContent = "Acima da capacidade";
+      unit.textContent = "excedente de " + Math.abs(s.saldo) +
+        (Math.abs(s.saldo) === 1 ? " paciente sobre" : " pacientes sobre") + " a capacidade operada";
+    }
+
+    // O rodapé do resultado só faz sentido quando o PCP realmente cortou algo.
+    basis.textContent = (s.pcp.level === "0" || (s.saldo <= 0 && s.pcp.level !== "3"))
+      ? ""
+      : "cálculo bruto " + s.saldo + "  ·  " + s.pcp.name + " (" + s.pcp.pctLabel + ")";
+
+    // Barra: a escala é a maior entre a capacidade operada e o total comprometido.
+    // Quando o comprometido passa da capacidade, a marca escura indica onde a
+    // capacidade termina — tudo à direita dela é excedente.
+    var base = Math.max(s.op, s.committed, 1);
+    document.getElementById("segEletiva").style.width = pct(s.ele, base) + "%";
+    document.getElementById("segAmbul").style.width = pct(s.amb, base) + "%";
+    document.getElementById("segVagaZero").style.width = pct(s.vz, base) + "%";
+    document.getElementById("segLivre").style.width = pct(Math.max(0, s.autorizadas), base) + "%";
+    document.getElementById("segRetido").style.width = pct(s.retidas, base) + "%";
+
+    var bar = document.getElementById("bar");
+    bar.dataset.over = s.saldo < 0 ? "1" : "0";
+    bar.dataset.retido = s.retidas > 0 ? "1" : "0";
+    document.getElementById("marker").style.left = "calc(" + pct(s.op, base) + "% - 1px)";
+
+    document.getElementById("capLabel").textContent =
+      "base " + s.op + "  ·  comprometido " + s.committed;
+
+    var conta = s.op + " − " + s.ele + " − " + s.amb + " − " + s.vz + " = " + s.saldo;
+    if (s.pcp.level === "3") {
+      conta += "   ·   grau 3 → não receber";
+    } else if (s.pcp.level !== "0" && s.saldo > 0) {
+      conta += "   ·   " + s.pcp.name + " → " + s.saldo + " × " +
+        s.pcp.pctLabel + " ↓ = " + s.autorizadas;
+    }
+    document.getElementById("formula").textContent = conta;
+
+    atualizarFila();
+  }
+
+  ids.forEach(function (id) {
+    el[id].addEventListener("input", render);
+  });
+
+  Array.prototype.forEach.call(
+    document.querySelectorAll('input[name="pcp"]'),
+    function (r) { r.addEventListener("change", render); }
+  );
+
+  document.getElementById("btnClear").addEventListener("click", function () {
+    ids.forEach(function (id) { el[id].value = "0"; });
+    render();
+    el.operados.focus();
+  });
+
+  // A página publicada roda dentro de um quadro com sandbox sem "allow-modals":
+  // ali o Chrome ignora window.print() sem avisar. Então a folha vai para a tela
+  // e o aviso diz onde gerar o arquivo de verdade.
+  var dentroDeQuadro = window.self !== window.top;
+
+  function abrirFolha() {
+    montarFolha();
+    document.body.dataset.folha = "1";
+    document.getElementById("folhaAviso").textContent = dentroDeQuadro
+      ? "Esta é a folha que vai para o PDF. Nesta página publicada o navegador bloqueia a janela de impressão; para gerar o arquivo, abra vagas-trauma-eletivo.html no seu computador e clique em Exportar PDF."
+      : "Esta é a folha que vai para o PDF. Na janela de impressão, escolha Salvar como PDF no destino.";
+    document.getElementById("btnImprimirFolha").hidden = dentroDeQuadro;
+    window.scrollTo(0, 0);
+  }
+
+  function fecharFolha() {
+    delete document.body.dataset.folha;
+    document.getElementById("btnPdf").focus();
+  }
+
+  document.getElementById("btnPdf").addEventListener("click", function () {
+    abrirFolha();
+    if (!dentroDeQuadro) window.print();
+  });
+
+  document.getElementById("btnImprimirFolha").addEventListener("click", function () {
+    window.print();
+  });
+
+  document.getElementById("btnFecharFolha").addEventListener("click", fecharFolha);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && document.body.dataset.folha) fecharFolha();
+  });
+
+  /* ---------- fila da central ---------- */
+
+  // Escritas como chegam (sem acento, minúsculas) → como devem aparecer.
+  var CIDADES = {
+    "taua": "Tauá",
+    "quixada": "Quixadá",
+    "quixeramobim": "Quixeramobim",
+    "senador": "Senador",
+    "senador pompeu": "Senador Pompeu",
+    "ibaretama": "Ibaretama",
+    "banabuiu": "Banabuiú",
+    "caninde": "Canindé",
+    "milha": "Milhã",
+    "boa": "Boa Viagem",
+    "boa viagem": "Boa Viagem",
+    "pedra": "Pedra Branca",
+    "pedra branca": "Pedra Branca",
+    "mombaca": "Mombaça",
+    "solonopole": "Solonópole",
+    "piquet": "Piquet Carneiro",
+    "piquet carneiro": "Piquet Carneiro",
+    "irapuan": "Deputado Irapuan Pinheiro",
+    "deputado irapuan pinheiro": "Deputado Irapuan Pinheiro",
+    "choro": "Choró",
+    "ibicuitinga": "Ibicuitinga",
+    "itatira": "Itatira",
+    "madalena": "Madalena",
+    "santa quiteria": "Santa Quitéria",
+    "acopiara": "Acopiara",
+    "independencia": "Independência",
+    "quiterianopolis": "Quiterianópolis",
+    "parambu": "Parambu",
+    "arneiroz": "Arneiroz",
+    "catarina": "Catarina",
+    "aiuaba": "Aiuaba",
+    "saboeiro": "Saboeiro"
+  };
+
+  var FRATURAS = {
+    "trans": "fêmur transtrocantérica",
+    "colo": "colo de fêmur",
+    "tnz": "tornozelo",
+    "lac": "luxação acromioclavicular",
+    "umero proximal": "úmero proximal",
+    "radio distal": "rádio distal",
+    "cotovelo": "cotovelo",
+    "olecrano": "olécrano",
+    "ulna": "ulna"
+  };
+
+  var marcados = {};
+  var fila = [];
+
+  function semAcento(t) {
+    return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+  }
+
+  function capitalizar(t) {
+    return t.replace(/(^|\s)(\S)/g, function (m, a, b) { return a + b.toUpperCase(); });
+  }
+
+  // Tira a cidade do fim do miolo: tenta três palavras, depois duas, depois uma,
+  // porque há nome composto ("Boa Viagem", "Deputado Irapuan Pinheiro"). Sem
+  // correspondência, assume a última palavra — cidade nova entra sem quebrar.
+  function separarFraturaCidade(miolo) {
+    var partes = miolo.split(/\s+/);
+    for (var n = 3; n >= 1; n--) {
+      if (partes.length <= n) continue;
+      var chave = semAcento(partes.slice(-n).join(" "));
+      if (CIDADES[chave]) {
+        return { fratura: partes.slice(0, -n).join(" "), cidade: CIDADES[chave] };
+      }
+    }
+    return {
+      fratura: partes.slice(0, -1).join(" "),
+      cidade: capitalizar(partes[partes.length - 1] || "")
+    };
+  }
+
+  function lerLista(texto) {
+    var linhas = texto.split("\n");
+    var itens = [];
+    var ignoradas = 0;
+    linhas.forEach(function (linha) {
+      if (!linha.trim()) return;
+      var m = linha.match(/^\s*(\d{5,9})\s+(.+?)\s+(\d+)\s*dias?\s*$/i);
+      if (!m) { ignoradas++; return; }
+      var partes = separarFraturaCidade(m[2].trim());
+      var chaveFratura = semAcento(partes.fratura);
+      itens.push({
+        reg: m[1],
+        fratura: FRATURAS[chaveFratura] || partes.fratura,
+        cidade: partes.cidade,
+        dias: parseInt(m[3], 10),
+        linha: linha.trim()
+      });
+    });
+    itens.sort(function (a, b) {
+      if (b.dias !== a.dias) return b.dias - a.dias;
+      return a.reg.localeCompare(b.reg);
+    });
+    return { itens: itens, ignoradas: ignoradas };
+  }
+
+  function montarFila() {
+    var lido = lerLista(document.getElementById("listaBruta").value);
+    fila = lido.itens;
+
+    // Quem saiu da lista não continua marcado.
+    var vivos = {};
+    fila.forEach(function (p) { if (marcados[p.reg]) vivos[p.reg] = true; });
+    marcados = vivos;
+
+    var aviso = document.getElementById("avisoLinhas");
+    aviso.textContent = lido.ignoradas
+      ? lido.ignoradas + (lido.ignoradas === 1
+          ? " linha não foi reconhecida e ficou de fora"
+          : " linhas não foram reconhecidas e ficaram de fora")
+      : "";
+
+    var corpo = document.getElementById("corpoFila");
+    corpo.textContent = "";
+    fila.forEach(function (p) {
+      var tr = document.createElement("tr");
+      tr.dataset.reg = p.reg;
+
+      var tdMarca = document.createElement("td");
+      tdMarca.className = "marca";
+      var caixa = document.createElement("input");
+      caixa.type = "checkbox";
+      caixa.checked = !!marcados[p.reg];
+      caixa.setAttribute("aria-label", "Marcar regulação " + p.reg);
+      caixa.addEventListener("change", function () {
+        if (caixa.checked) { marcados[p.reg] = true; } else { delete marcados[p.reg]; }
+        atualizarFila();
+      });
+      tdMarca.appendChild(caixa);
+
+      var tdReg = document.createElement("td");
+      tdReg.className = "reg";
+      tdReg.textContent = p.reg;
+
+      var tdFratura = document.createElement("td");
+      tdFratura.className = "fratura";
+      tdFratura.textContent = p.fratura;
+
+      var tdCidade = document.createElement("td");
+      tdCidade.textContent = p.cidade;
+
+      var tdEspera = document.createElement("td");
+      tdEspera.className = "espera";
+      tdEspera.textContent = p.dias + (p.dias === 1 ? " dia" : " dias");
+
+      tr.appendChild(tdMarca);
+      tr.appendChild(tdReg);
+      tr.appendChild(tdFratura);
+      tr.appendChild(tdCidade);
+      tr.appendChild(tdEspera);
+      corpo.appendChild(tr);
+    });
+
+    document.getElementById("tabelaFila").hidden = fila.length === 0;
+    document.getElementById("filaVazia").hidden = fila.length > 0;
+    document.getElementById("filaCaption").textContent = fila.length
+      ? fila.length + (fila.length === 1 ? " paciente na fila, do que espera há mais tempo para o mais recente"
+                                         : " pacientes na fila, do que espera há mais tempo para o mais recente")
+      : "";
+    renderPerfil();
+    atualizarFila();
+  }
+
+  function atualizarFila() {
+    var s = state();
+    var vagas = Math.max(0, s.autorizadas);
+    var total = 0;
+    var acimaDe = null;
+
+    Array.prototype.forEach.call(
+      document.querySelectorAll("#corpoFila tr"),
+      function (tr) {
+        var marcado = !!marcados[tr.dataset.reg];
+        tr.classList.toggle("marcado", marcado);
+        if (marcado) {
+          total++;
+          if (total > vagas) {
+            tr.classList.add("acima");
+            if (acimaDe === null) acimaDe = total;
+          } else {
+            tr.classList.remove("acima");
+          }
+        } else {
+          tr.classList.remove("acima");
+        }
+      }
+    );
+
+    var contador = document.getElementById("contador");
+    if (!total) {
+      contador.dataset.estado = "vazio";
+      contador.textContent = vagas
+        ? "nenhum marcado · " + vagas + (vagas === 1 ? " vaga livre" : " vagas livres")
+        : "nenhum marcado · sem vaga livre";
+    } else if (total > vagas) {
+      contador.dataset.estado = "excedido";
+      contador.textContent = total + " marcados · " + (total - vagas) +
+        (total - vagas === 1 ? " acima das vagas" : " acima das vagas");
+    } else {
+      contador.dataset.estado = total === vagas ? "cheio" : "ok";
+      contador.textContent = total + " de " + vagas +
+        (vagas === 1 ? " vaga marcada" : " vagas marcadas");
+    }
+
+    renderEscala();
+  }
+
+  /* ---------- perfil da fila ---------- */
+
+  function contar(itens, chave) {
+    var mapa = {};
+    itens.forEach(function (p) {
+      var k = p[chave] || "—";
+      mapa[k] = (mapa[k] || 0) + 1;
+    });
+    return Object.keys(mapa).map(function (k) {
+      return { nome: k, n: mapa[k] };
+    }).sort(function (a, b) {
+      if (b.n !== a.n) return b.n - a.n;
+      return a.nome.localeCompare(b.nome, "pt-BR");
+    });
+  }
+
+  function desenharBarras(alvo, lista, unidade) {
+    var maior = lista.reduce(function (m, i) { return Math.max(m, i.n); }, 0) || 1;
+    alvo.textContent = "";
+    lista.forEach(function (item) {
+      var linha = document.createElement("div");
+      linha.className = "barra-linha";
+      linha.title = item.nome + ": " + item.n + " " + (item.n === 1 ? unidade : unidade + "s");
+
+      var rot = document.createElement("div");
+      rot.className = "barra-rotulo";
+      rot.textContent = item.nome;
+
+      var trilho = document.createElement("div");
+      trilho.className = "barra-trilho";
+      var fill = document.createElement("div");
+      fill.className = "barra-fill";
+      fill.style.width = (item.n / maior) * 100 + "%";
+      trilho.appendChild(fill);
+
+      var val = document.createElement("div");
+      val.className = "barra-valor";
+      val.textContent = item.n;
+
+      linha.appendChild(rot);
+      linha.appendChild(trilho);
+      linha.appendChild(val);
+      alvo.appendChild(linha);
+    });
+  }
+
+  function desenharEspera(alvo, itens) {
+    var maxDias = itens.reduce(function (m, p) { return Math.max(m, p.dias); }, 0);
+    var teto = Math.min(maxDias, 14);
+    var baldes = [];
+    for (var d = 0; d <= teto; d++) {
+      baldes.push({ rotulo: String(d), n: 0 });
+    }
+    if (maxDias > 14) baldes.push({ rotulo: "15+", n: 0 });
+    itens.forEach(function (p) {
+      var i = p.dias > 14 ? baldes.length - 1 : p.dias;
+      baldes[i].n++;
+    });
+
+    var maior = baldes.reduce(function (m, b) { return Math.max(m, b.n); }, 0) || 1;
+    alvo.textContent = "";
+    baldes.forEach(function (b) {
+      var col = document.createElement("div");
+      col.className = "hist-col";
+      col.dataset.vazio = b.n ? "0" : "1";
+      col.title = b.n + (b.n === 1 ? " paciente" : " pacientes") +
+        (b.rotulo === "15+"
+          ? " com 15 dias ou mais"
+          : " com " + b.rotulo + (b.rotulo === "1" ? " dia" : " dias") + " de espera");
+
+      var num = document.createElement("div");
+      num.className = "hist-num";
+      num.textContent = b.n || "";
+
+      var caixa = document.createElement("div");
+      caixa.className = "hist-caixa";
+      var barra = document.createElement("div");
+      barra.className = "hist-bar";
+      barra.style.height = b.n ? Math.max(4, (b.n / maior) * 96) + "px" : "2px";
+      caixa.appendChild(barra);
+
+      var dia = document.createElement("div");
+      dia.className = "hist-dia";
+      dia.textContent = b.rotulo;
+
+      col.appendChild(num);
+      col.appendChild(caixa);
+      col.appendChild(dia);
+      alvo.appendChild(col);
+    });
+  }
+
+  function tile(rotulo, valor, nota) {
+    var d = document.createElement("div");
+    d.className = "tile";
+    var r = document.createElement("div");
+    r.className = "rotulo";
+    r.textContent = rotulo;
+    var v = document.createElement("div");
+    v.className = "valor";
+    v.textContent = valor;
+    d.appendChild(r);
+    d.appendChild(v);
+    if (nota) {
+      var n = document.createElement("div");
+      n.className = "nota";
+      n.textContent = nota;
+      d.appendChild(n);
+    }
+    return d;
+  }
+
+  function renderPerfil() {
+    var painel = document.getElementById("perfil");
+    painel.hidden = fila.length === 0;
+    if (!fila.length) return;
+
+    var total = fila.length;
+    var soma = fila.reduce(function (a, p) { return a + p.dias; }, 0);
+    var media = soma / total;
+    var maiorEspera = fila.reduce(function (m, p) { return Math.max(m, p.dias); }, 0);
+    var femur = fila.filter(function (p) { return p.fratura.indexOf("fêmur") >= 0; }).length;
+    var cidades = contar(fila, "cidade");
+    var fraturas = contar(fila, "fratura");
+    var esperando3 = fila.filter(function (p) { return p.dias >= 3; }).length;
+
+    var tiles = document.getElementById("tiles");
+    tiles.textContent = "";
+    tiles.appendChild(tile("Na fila", total, total === 1 ? "paciente" : "pacientes"));
+    tiles.appendChild(tile("Espera média", media.toFixed(1).replace(".", ","), "dias na central"));
+    tiles.appendChild(tile("Espera máxima", maiorEspera, maiorEspera === 1 ? "dia" : "dias"));
+    tiles.appendChild(tile("Fêmur", femur, Math.round((femur / total) * 100) + "% da fila"));
+    tiles.appendChild(tile("Municípios", cidades.length, "de origem"));
+    tiles.appendChild(tile("3 dias ou mais", esperando3, Math.round((esperando3 / total) * 100) + "% da fila"));
+
+    // Toda cidade e todo tipo aparecem, sempre — nada de linha "outras".
+    desenharBarras(document.getElementById("graficoCidades"), cidades, "paciente");
+    desenharBarras(document.getElementById("graficoFraturas"), fraturas, "paciente");
+    desenharEspera(document.getElementById("graficoEspera"), fila);
+
+    document.getElementById("subCidades").textContent =
+      cidades.length + (cidades.length === 1 ? " município" : " municípios") + " na fila";
+    document.getElementById("subFraturas").textContent =
+      fraturas.length + (fraturas.length === 1 ? " tipo" : " tipos") + " de fratura na fila";
+
+    document.getElementById("perfilResumo").textContent =
+      total + (total === 1 ? " paciente" : " pacientes") + " · " +
+      cidades.length + (cidades.length === 1 ? " município" : " municípios") + " · " +
+      fraturas.length + (fraturas.length === 1 ? " tipo" : " tipos") + " de fratura";
+  }
+
+  /* ---------- escala por dia ---------- */
+
+  // Quantidades que o usuário fixou à mão, por posição de dia.
+  var ajustes = {};
+
+  function porDiaValor() {
+    var v = parseInt(document.getElementById("porDia").value, 10);
+    if (isNaN(v) || v < 1) return 1;
+    return v;
+  }
+
+  // Cada dia recebe exatamente o número pedido; o último fica com o resto.
+  // O que o usuário digitar num dia vale acima disso.
+  function montarDias(total, porDia) {
+    var dias = [];
+    var restante = total;
+    var i = 0;
+    while (restante > 0 && i < 60) {
+      var c = ajustes[i] !== undefined ? ajustes[i] : porDia;
+      c = Math.max(0, Math.min(c, restante));
+      dias.push(c);
+      restante -= c;
+      i++;
+    }
+    return dias;
+  }
+
+  // "Quarta-feira", "Sábado" — nome completo, com a inicial maiúscula.
+  function nomeDia(d) {
+    var nome = d.toLocaleDateString("pt-BR", { weekday: "long" });
+    return nome.charAt(0).toUpperCase() + nome.slice(1);
+  }
+
+  function dataCompleta(d) {
+    return d.toLocaleDateString("pt-BR", {
+      day: "2-digit", month: "2-digit", year: "numeric"
+    });
+  }
+
+  // Última distribuição calculada, reaproveitada pela folha do PDF.
+  var ultimaEscala = { dias: [], escolhidos: [] };
+
+  function renderEscala() {
+    var escolhidos = fila.filter(function (p) { return marcados[p.reg]; });
+    var caixa = document.getElementById("escala");
+    caixa.hidden = escolhidos.length === 0;
+    if (!escolhidos.length) {
+      document.getElementById("saidaEscala").textContent = "";
+      ultimaEscala = { dias: [], escolhidos: [] };
+      montarFolha();
+      return;
+    }
+
+    var dias = montarDias(escolhidos.length, porDiaValor());
+    var hoje = new Date();
+    var linhasDia = document.getElementById("dias");
+
+    // A tabela de dias é remontada a cada tecla; sem isto o cursor sairia do campo
+    // no primeiro dígito e não daria para digitar um número de dois algarismos.
+    var ativo = document.activeElement;
+    var focado = ativo && ativo.dataset && ativo.dataset.dia !== undefined
+      ? ativo.dataset.dia : null;
+
+    linhasDia.textContent = "";
+
+    var texto = [];
+    var pos = 0;
+
+    dias.forEach(function (qtd, i) {
+      var data = new Date(hoje.getTime() + i * 86400000);
+      var rotulo = nomeDia(data);
+      var dataCurta = dataCompleta(data);
+
+      var linha = document.createElement("div");
+      linha.className = "dia";
+      var esq = document.createElement("div");
+      var nome = document.createElement("div");
+      nome.className = "dia-nome";
+      nome.textContent = rotulo;
+      var dt = document.createElement("div");
+      dt.className = "dia-data";
+      dt.textContent = dataCurta;
+      esq.appendChild(nome);
+      esq.appendChild(dt);
+
+      var campo = document.createElement("input");
+      campo.type = "number";
+      campo.min = "0";
+      campo.step = "1";
+      campo.value = qtd;
+      campo.dataset.dia = i;
+      campo.setAttribute("aria-label", "Pacientes em " + rotulo + " " + dataCurta);
+      campo.addEventListener("input", function () {
+        var v = parseInt(campo.value, 10);
+        if (isNaN(v) || v < 0) return;
+        ajustes[i] = v;
+        renderEscala();
+      });
+
+      linha.appendChild(esq);
+      linha.appendChild(campo);
+      linhasDia.appendChild(linha);
+
+      var doDia = escolhidos.slice(pos, pos + qtd);
+      pos += qtd;
+      if (!doDia.length) return;
+      texto.push(rotulo + " dia " + dataCurta);
+      doDia.forEach(function (p) { texto.push(p.linha); });
+      texto.push("");
+    });
+
+    if (focado !== null) {
+      var volta = linhasDia.querySelector('input[data-dia="' + focado + '"]');
+      if (volta) {
+        volta.focus();
+        var fim = volta.value.length;
+        try { volta.setSelectionRange(fim, fim); } catch (e) { /* type=number recusa */ }
+      }
+    }
+
+    document.getElementById("saidaEscala").textContent = texto.join("\n").trim();
+    ultimaEscala = { dias: dias, escolhidos: escolhidos };
+    montarFolha();
+  }
+
+  /* ---------- folha do PDF ---------- */
+
+  var NS = "http://www.w3.org/2000/svg";
+
+  // Rampa de um tom só, do escuro ao claro, ordenada pelo tamanho da fatia.
+  // Todos os passos ficam acima de 3,2:1 contra o papel branco.
+  var RAMPA = ["#08403E", "#104A48", "#185452", "#1F5F5C", "#276966",
+               "#2F736F", "#377D79", "#3E8883", "#46928D", "#4E9C97"];
+  var TINTA = "#0F6E6B";
+  var TRILHO_PAPEL = "#DDE5E7";
+
+  function sv(nome, attrs) {
+    var e = document.createElementNS(NS, nome);
+    Object.keys(attrs || {}).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+    return e;
+  }
+
+  function corDaFatia(i, n) {
+    if (n <= 1) return RAMPA[0];
+    return RAMPA[Math.round((i / (n - 1)) * (RAMPA.length - 1))];
+  }
+
+  function arco(cx, cy, R, ri, a0, a1) {
+    var x0 = cx + R * Math.cos(a0), y0 = cy + R * Math.sin(a0);
+    var x1 = cx + R * Math.cos(a1), y1 = cy + R * Math.sin(a1);
+    var xi1 = cx + ri * Math.cos(a1), yi1 = cy + ri * Math.sin(a1);
+    var xi0 = cx + ri * Math.cos(a0), yi0 = cy + ri * Math.sin(a0);
+    var grande = (a1 - a0) > Math.PI ? 1 : 0;
+    return "M" + x0 + "," + y0 +
+      " A" + R + "," + R + " 0 " + grande + " 1 " + x1 + "," + y1 +
+      " L" + xi1 + "," + yi1 +
+      " A" + ri + "," + ri + " 0 " + grande + " 0 " + xi0 + "," + yi0 + " Z";
+  }
+
+  function pizza(dados, total) {
+    var tam = 122, R = 58, ri = 32, cx = tam / 2, cy = tam / 2;
+    var svg = sv("svg", { width: tam, height: tam, viewBox: "0 0 " + tam + " " + tam,
+                          role: "img", "aria-label": "pacientes por município" });
+    if (dados.length === 1) {
+      svg.appendChild(sv("circle", { cx: cx, cy: cy, r: R, fill: RAMPA[0] }));
+      svg.appendChild(sv("circle", { cx: cx, cy: cy, r: ri, fill: "#FFFFFF" }));
+    } else {
+      var ang = -Math.PI / 2;
+      dados.forEach(function (d, i) {
+        var fimAng = ang + (d.n / total) * Math.PI * 2;
+        svg.appendChild(sv("path", {
+          d: arco(cx, cy, R, ri, ang, fimAng),
+          fill: corDaFatia(i, dados.length),
+          stroke: "#FFFFFF", "stroke-width": 1.5
+        }));
+        ang = fimAng;
+      });
+    }
+    var n1 = sv("text", { x: cx, y: cy + 1, "text-anchor": "middle",
+                          "font-size": 17, "font-weight": 700, fill: "#101010" });
+    n1.textContent = total;
+    var n2 = sv("text", { x: cx, y: cy + 11, "text-anchor": "middle",
+                          "font-size": 6.5, fill: "#667" });
+    n2.textContent = "pacientes";
+    svg.appendChild(n1);
+    svg.appendChild(n2);
+    return svg;
+  }
+
+  // Barra em SVG, e não em CSS: o Chrome imprime sem fundos por padrão, então
+  // barra feita com background sairia em branco no papel.
+  function barraSvg(fracao) {
+    var svg = sv("svg", { width: "100%", height: 8, viewBox: "0 0 100 8",
+                          preserveAspectRatio: "none", "aria-hidden": "true" });
+    svg.appendChild(sv("rect", { x: 0, y: 0, width: 100, height: 8, fill: TRILHO_PAPEL }));
+    svg.appendChild(sv("rect", { x: 0, y: 0, width: Math.max(0.8, fracao * 100), height: 8, fill: TINTA }));
+    return svg;
+  }
+
+  function histogramaSvg(itens) {
+    var maxDias = itens.reduce(function (m, p) { return Math.max(m, p.dias); }, 0);
+    var teto = Math.min(maxDias, 14);
+    var baldes = [];
+    for (var d = 0; d <= teto; d++) baldes.push({ rotulo: String(d), n: 0 });
+    if (maxDias > 14) baldes.push({ rotulo: "15+", n: 0 });
+    itens.forEach(function (p) {
+      baldes[p.dias > 14 ? baldes.length - 1 : p.dias].n++;
+    });
+
+    var L = 660, A = 100, base = A - 14, topo = 12;
+    var maior = baldes.reduce(function (m, b) { return Math.max(m, b.n); }, 0) || 1;
+    var passo = L / baldes.length;
+    var larg = Math.min(40, passo - 8);
+    var svg = sv("svg", { width: "100%", viewBox: "0 0 " + L + " " + A,
+                          role: "img", "aria-label": "pacientes por dia de espera" });
+    svg.appendChild(sv("line", { x1: 0, y1: base, x2: L, y2: base,
+                                 stroke: "#AAB4B6", "stroke-width": 1 }));
+    baldes.forEach(function (b, i) {
+      var cx = i * passo + passo / 2;
+      var h = b.n ? Math.max(3, (b.n / maior) * (base - topo)) : 0;
+      if (h) {
+        svg.appendChild(sv("rect", { x: cx - larg / 2, y: base - h, width: larg, height: h,
+                                     fill: TINTA, rx: 2 }));
+        var t = sv("text", { x: cx, y: base - h - 3, "text-anchor": "middle",
+                             "font-size": 9, fill: "#334" });
+        t.textContent = b.n;
+        svg.appendChild(t);
+      }
+      var r = sv("text", { x: cx, y: A - 2, "text-anchor": "middle",
+                           "font-size": 9, fill: "#667" });
+      r.textContent = b.rotulo;
+      svg.appendChild(r);
+    });
+    return svg;
+  }
+
+  function montarFolha() {
+    var folha = document.getElementById("folha");
+    var s = state();
+    var escolhidos = ultimaEscala.escolhidos;
+    var dias = ultimaEscala.dias;
+    folha.textContent = "";
+
+    var hoje = new Date();
+    var h1 = document.createElement("h1");
+    h1.textContent = "Trauma eletivo · perfil da demanda";
+    var meta = document.createElement("div");
+    meta.className = "folha-meta";
+    meta.textContent = nomeDia(hoje) + " dia " + dataCompleta(hoje) +
+      "  ·  lista da central de regulação  ·  janela de 7 dias";
+    folha.appendChild(h1);
+    folha.appendChild(meta);
+
+    var total = fila.length;
+    var soma = fila.reduce(function (a, p) { return a + p.dias; }, 0);
+    var media = total ? soma / total : 0;
+    var maiorEspera = fila.reduce(function (m, p) { return Math.max(m, p.dias); }, 0);
+    var femur = fila.filter(function (p) { return p.fratura.indexOf("fêmur") >= 0; }).length;
+    var esperando3 = fila.filter(function (p) { return p.dias >= 3; }).length;
+    var cidades = contar(fila, "cidade");
+    var fraturas = contar(fila, "fratura");
+
+    var resumo = document.createElement("div");
+    resumo.className = "folha-resumo";
+    function bloco(k, v) {
+      var d = document.createElement("div");
+      var ek = document.createElement("span");
+      ek.className = "k";
+      ek.textContent = k;
+      var ev = document.createElement("span");
+      ev.className = "v";
+      ev.textContent = v;
+      d.appendChild(ek);
+      d.appendChild(ev);
+      resumo.appendChild(d);
+    }
+    bloco("Vagas autorizáveis", s.pcp.level === "3" ? "0" : String(s.autorizadas));
+    bloco("Contingência", s.pcp.level === "0" ? "Rotina · 100%"
+      : "Grau " + s.pcp.level + " · " + s.pcp.pctLabel);
+    bloco("Na fila", String(total));
+    bloco("Espera média", total ? media.toFixed(1).replace(".", ",") + " dias" : "—");
+    bloco("Espera máxima", total ? String(maiorEspera) + (maiorEspera === 1 ? " dia" : " dias") : "—");
+    bloco("Fêmur", total ? femur + " · " + Math.round((femur / total) * 100) + "%" : "—");
+    folha.appendChild(resumo);
+
+    var conta = document.createElement("div");
+    conta.className = "folha-conta";
+    conta.textContent = document.getElementById("formula").textContent +
+      (escolhidos.length
+        ? "   ·   " + escolhidos.length + " marcados para entrada em " +
+          dias.filter(function (n) { return n > 0; }).length + " dias"
+        : "");
+    folha.appendChild(conta);
+
+    if (!total) {
+      var vazio = document.createElement("div");
+      vazio.className = "folha-rodape";
+      vazio.textContent = "Nenhuma lista da central foi colada — sem dados para o perfil.";
+      folha.appendChild(vazio);
+      medirFolha();
+      return;
+    }
+
+    var maisAntigo = fila[0];
+    var destaque = document.createElement("div");
+    destaque.className = "folha-destaque";
+    var dk = document.createElement("span");
+    dk.className = "k";
+    dk.textContent = "Mais antigo na fila";
+    var dv = document.createElement("span");
+    dv.className = "v";
+    dv.textContent = maisAntigo.reg + " · " + maisAntigo.fratura + " · " + maisAntigo.cidade +
+      " · " + maisAntigo.dias + (maisAntigo.dias === 1 ? " dia" : " dias") +
+      "   —   " + esperando3 + " de " + total + " esperam 3 dias ou mais";
+    destaque.appendChild(dk);
+    destaque.appendChild(dv);
+    folha.appendChild(destaque);
+
+    var graf = document.createElement("div");
+    graf.className = "folha-graf";
+
+    var bCid = document.createElement("div");
+    bCid.className = "folha-bloco";
+    var hCid = document.createElement("h2");
+    hCid.textContent = "Cidades";
+    var sCid = document.createElement("p");
+    sCid.className = "sub";
+    sCid.textContent = cidades.length + (cidades.length === 1 ? " município" : " municípios") +
+      " na fila, da maior para a menor fatia";
+    var caixaPizza = document.createElement("div");
+    caixaPizza.className = "folha-pizza";
+    caixaPizza.appendChild(pizza(cidades, total));
+    var leg = document.createElement("div");
+    leg.className = "folha-legenda";
+    cidades.forEach(function (c, i) {
+      var item = document.createElement("span");
+      item.className = "item";
+      var sw = sv("svg", { width: 8, height: 8, "aria-hidden": "true" });
+      sw.appendChild(sv("rect", { width: 8, height: 8, rx: 1.5, fill: corDaFatia(i, cidades.length) }));
+      var nome = document.createElement("span");
+      nome.textContent = c.nome;
+      var qtd = document.createElement("span");
+      qtd.className = "qtd";
+      qtd.textContent = c.n + " · " + Math.round((c.n / total) * 100) + "%";
+      item.appendChild(sw);
+      item.appendChild(nome);
+      item.appendChild(qtd);
+      leg.appendChild(item);
+    });
+    caixaPizza.appendChild(leg);
+    bCid.appendChild(hCid);
+    bCid.appendChild(sCid);
+    bCid.appendChild(caixaPizza);
+    graf.appendChild(bCid);
+
+    var bFra = document.createElement("div");
+    bFra.className = "folha-bloco";
+    var hFra = document.createElement("h2");
+    hFra.textContent = "Tipos de fratura";
+    var sFra = document.createElement("p");
+    sFra.className = "sub";
+    sFra.textContent = fraturas.length + (fraturas.length === 1 ? " tipo" : " tipos") +
+      " na fila, do mais frequente ao menos";
+    bFra.appendChild(hFra);
+    bFra.appendChild(sFra);
+    var maiorFra = fraturas[0].n;
+    fraturas.forEach(function (f) {
+      var linha = document.createElement("div");
+      linha.className = "folha-barra-linha";
+      var rot = document.createElement("div");
+      rot.className = "rot";
+      rot.textContent = f.nome;
+      var caixa = document.createElement("div");
+      caixa.appendChild(barraSvg(f.n / maiorFra));
+      var num = document.createElement("div");
+      num.className = "num";
+      num.textContent = f.n;
+      linha.appendChild(rot);
+      linha.appendChild(caixa);
+      linha.appendChild(num);
+      bFra.appendChild(linha);
+    });
+    graf.appendChild(bFra);
+
+    var bEsp = document.createElement("div");
+    bEsp.className = "folha-bloco largo";
+    var hEsp = document.createElement("h2");
+    hEsp.textContent = "Tempo de espera";
+    var sEsp = document.createElement("p");
+    sEsp.className = "sub";
+    sEsp.textContent = "pacientes por dia de espera na central";
+    bEsp.appendChild(hEsp);
+    bEsp.appendChild(sEsp);
+    bEsp.appendChild(histogramaSvg(fila));
+    graf.appendChild(bEsp);
+
+    folha.appendChild(graf);
+
+    var rodape = document.createElement("div");
+    rodape.className = "folha-rodape";
+    rodape.textContent = "Fila de " + total + " pacientes vinda da central, " +
+      cidades.length + " municípios e " + fraturas.length + " tipos de fratura. " +
+      "Espera média de " + media.toFixed(1).replace(".", ",") + " dias, máxima de " +
+      maiorEspera + ". O cálculo de vagas é referência de fluxo: confirme leito, sala e equipe.";
+    folha.appendChild(rodape);
+
+    medirFolha();
+  }
+
+  // Mede a folha na caixa útil de uma A4 retrato (184 × 273 mm a 96 dpi) e avisa
+  // só quando ela estoura de verdade — nada de chutar por número de pacientes.
+  function medirFolha() {
+    var folha = document.getElementById("folha");
+    var alerta = document.getElementById("alertaPdf");
+    var noModoFolha = !!document.body.dataset.folha;
+    folha.style.cssText =
+      "display:block;position:absolute;visibility:hidden;left:-9999px;top:0;width:695px;font-size:11px";
+    var altura = folha.getBoundingClientRect().height;
+    folha.style.cssText = "";
+    alerta.textContent = altura > 1032
+      ? "a folha passou de uma página — reduza a lista colada"
+      : "";
+    return { altura: altura, noModoFolha: noModoFolha };
+  }
+
+  document.getElementById("porDia").addEventListener("input", function () {
+    ajustes = {};
+    renderEscala();
+  });
+
+  document.getElementById("btnCopiarEscala").addEventListener("click", function () {
+    var texto = document.getElementById("saidaEscala").textContent;
+    var aviso = document.getElementById("okCopia");
+    function feito(msg) {
+      aviso.textContent = msg;
+      setTimeout(function () { aviso.textContent = ""; }, 2500);
+    }
+    // Área de transferência moderna quando o navegador permite; senão, o método
+    // antigo, que continua funcionando com o arquivo aberto direto do disco.
+    function porTextareaOculta() {
+      var caixa = document.createElement("textarea");
+      caixa.value = texto;
+      caixa.setAttribute("readonly", "");
+      caixa.style.position = "fixed";
+      caixa.style.top = "-1000px";
+      document.body.appendChild(caixa);
+      caixa.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      document.body.removeChild(caixa);
+      feito(ok ? "copiado" : "selecione o texto para copiar");
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(texto).then(
+        function () { feito("copiado"); },
+        porTextareaOculta
+      );
+    } else {
+      porTextareaOculta();
+    }
+  });
+
+  document.getElementById("listaBruta").addEventListener("input", montarFila);
+
+  setWindowNote();
+  render();
+  montarFila();
+</script>
+
+</body></html>
